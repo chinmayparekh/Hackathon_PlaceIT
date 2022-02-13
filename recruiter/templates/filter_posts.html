@@ -1,0 +1,117 @@
+{% extends "base1.html" %}
+{% load static %}
+{% block content %}
+
+<title>Filter based on choices</title>
+
+<!-- <p id="message"></p>
+{% for post in posts %}
+<h3>{{ forloop.counter }}) {{ post.post_heading }}</h3>
+<p>{{ post.post_text }} </p>
+<a class="likebutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}">Like</a>
+{% endfor %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+$('.likebutton').click(function(){
+var catid;
+catid = $(this).attr("data-catid");
+$.ajax(
+{
+    type:"GET",
+    url: "/likepost",
+    data:{
+             post_id: catid
+    },
+    success: function( data )
+    {
+        $( '#like'+ catid ).remove();
+        $( '#message' ).text(data);
+    }
+ })
+});
+</script> -->
+
+<br><br><br><br><br>
+{%if flag == 0 %}
+
+<div>
+    <br>
+    <h1 id="regText">Fill Your Preferences</h1>
+    <!-- <h2 style="font-family: 'Roboto Mono', monospace;
+    color: #6b63fe;
+    text-align: center;
+    font-weight: bold;
+    font-size: min(50px,3vw)">Fill Your Preferences</h2> -->
+</div>
+
+<div id="formbox" class=" bg-dark text-light container d-flex justify-content-center mb-3re">
+    <div id="aligndiv" class=" text-light d-flex">
+        <div class="d-none d-md-block p-2"><img src="{% static 'images/filter.svg' %}" class="d-block w-100" alt="assets/portfolio.svg"></div>
+
+    </div>
+
+    <div id="aligndiv" class="bg-light text-dark" style="border-radius: 25px;">
+        <div class="p-2">
+            <form>
+                College Location1:<br> <input type="text" name="location1">
+
+                <br>
+                College Location2:<br> <input type="text" name="location2">
+
+                <br>
+                College Location3:<br> <input type="text" name="location3">
+
+                <br>
+
+                <div class="container pt-2" style="text-align: center;">
+                    <input style="font-family: 'Roboto Mono', monospace;" id="mybtn2" class="btn btn-dark" type="submit" value="SUBMIT" >
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+{%elif flag == 1 %}
+<div>
+    <br>
+    <h1 id="regText">Choose College(s)</h1>
+    <!-- <h2 style="font-family: 'Roboto Mono', monospace;
+    color: #6b63fe;
+    text-align: center;
+    font-weight: bold;
+    font-size: min(50px,3vw)">Enter Credentials</h2> -->
+</div>
+
+<div id="formbox" class=" bg-dark text-light container d-flex justify-content-center mb-3re">
+    <div id="aligndiv" class=" text-light d-flex">
+        <div class="d-none d-md-block p-2"><img src="{% static 'images/sellectcollege.svg' %}" class="d-block w-100" alt="assets/portfolio.svg"></div>
+
+    </div>
+
+    <div id="aligndiv" class="bg-light text-dark" style="border-radius: 25px;">
+        <div class="p-2">
+            <form method="post">
+                {% csrf_token %}
+                <!-- <label for="colleges">Send to which colleges?</label><br> -->
+
+                {% for i in colleges %}
+                <input type="checkbox" id="col1" name="colleges" value="{{i}}">
+                <label for="col1"> {{i}}</label><br>
+                {%endfor%}
+                <div class="container pt-2" style="text-align: center;">
+                    <input style="font-family: 'Roboto Mono', monospace;" id="mybtn2" class="btn btn-dark" type="submit" value="SUBMIT" >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+{%endif%}
+
+{% endblock %}
